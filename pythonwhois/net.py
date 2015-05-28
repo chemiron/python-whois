@@ -156,12 +156,13 @@ class WhoisParser(object):
         request = self.prepare_request(domain, whois_server)
         response = self.whois_request(request, whois_server)
         response = self._process_response(
-            response, whois_server, domain,
+            response, domain, whois_server,
             previous, server_list, never_cut)
 
         new_server = self.extract_whois_server(response, server_list)
         if new_server is not None:
-            return self.get_whois_raw(new_server, previous, server_list)
+            return self.get_whois_raw(new_server, previous, never_cut,
+                                      with_server_list, server_list)
 
         if with_server_list:
             return previous, server_list

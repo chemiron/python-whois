@@ -2,8 +2,8 @@ from . import net, parse
 
 
 def get_whois(domain, normalized=[], parser=None):
-    parser = parser or net.WhoisParser(domain, with_server_list=True)
-    raw_data, server_list = parser.get_whois_raw()
+    parser = parser or net.WhoisParser(domain)
+    raw_data, server_list = parser.get_whois_raw(with_server_list=True)
     # Unlisted handles will be looked up on the last WHOIS server
     # that was queried. This may be changed to also query other
     # servers in the future, if it turns out that there are cases
