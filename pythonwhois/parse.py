@@ -594,7 +594,9 @@ def parse_raw_whois(raw_data, normalized=None, never_query_handles=True, handle_
         if match is not None:
             chunk = match.group(1)
             for match in re.findall("        (.+)\n", chunk):
-                match = match.split()[0]
+                splitted = match.split()
+                if splitted:
+                    match = splitted[0]
                 try:
                     data["nameservers"].append(match.strip())
                 except KeyError as e:
@@ -616,7 +618,9 @@ def parse_raw_whois(raw_data, normalized=None, never_query_handles=True, handle_
         if match is not None:
             chunk = match.group(1)
             for match in re.findall("\t(.+)\n", chunk):
-                match = match.split()[0]
+                splitted = match.split()
+                if splitted:
+                    match = splitted[0]
                 try:
                     data["nameservers"].append(match.strip())
                 except KeyError as e:
@@ -626,7 +630,9 @@ def parse_raw_whois(raw_data, normalized=None, never_query_handles=True, handle_
         if match is not None:
             chunk = match.group(1)
             for match in re.findall("      (.+)\n", chunk):
-                match = match.split()[0]
+                splitted = match.split()
+                if splitted:
+                    match = splitted[0]
                 try:
                     data["nameservers"].append(match.strip())
                 except KeyError as e:
@@ -639,7 +645,9 @@ def parse_raw_whois(raw_data, normalized=None, never_query_handles=True, handle_
         if match is not None:
             chunk = match.group(1)
             for match in re.findall("\s+?(.+)\n", chunk):
-                match = match.split()[0]
+                splitted = match.split()
+                if splitted:
+                    match = splitted[0]
                 # Prevent nameserver aliases from being picked up.
                 if not match.startswith("[") and not match.endswith("]"):
                     try:
