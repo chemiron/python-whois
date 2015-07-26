@@ -972,7 +972,9 @@ def remove_suffixes(data):
     cleaned_list = []
 
     for entry in data:
-        cleaned_list.append(re.search("([^\s]+)\s*[\s]*", entry).group(1).lstrip())
+        result = re.search("([^\s]+)\s*[\s]*", entry)
+        if result:
+            cleaned_list.append(result.group(1).lstrip())
 
     return cleaned_list
 
