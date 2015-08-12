@@ -1127,9 +1127,15 @@ def parse_registrants(data, never_query_handles=True, handle_server=""):
 
 
 def fetch_nic_contact(handle, lookup_server):
-    response = net.get_whois_raw(handle, lookup_server)
-    response = [segment.replace("\r", "") for segment in response]  # Carriage returns are the devil
-    results = parse_nic_contact(response)
+    results = []
+    try:
+        response = net.get_whois_raw(handle, lookup_server)
+    except TimeoutError:
+        pass
+    else:
+        # Carriage returns are the devil
+        response = [segment.replace("\r", "") for segment in response]
+        results = parse_nic_contact(response)
 
     if len(results) > 0:
         return results[0]
